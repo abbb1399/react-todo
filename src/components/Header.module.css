@@ -1,4 +1,10 @@
 .header {
-  background-color: red;
+  background-color: gray;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.headerList span {
+  margin-left: 12px;
 }
