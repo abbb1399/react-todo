@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
+  const { addTodo } = useContext(TodoContext);
+
   const [todo, setTodo] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!todo) return;
+    addTodo(todo);
     setTodo("");
   };
 

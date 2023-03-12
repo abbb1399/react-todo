@@ -4,12 +4,14 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { TodoContext } from "../context/TodoContext";
 
 export default function Main() {
-  const { todos } = useContext(TodoContext);
+  const { todos, deleteTodo, updateTodo } = useContext(TodoContext);
 
-  const [checked, setChecked] = useState(true);
+  // const [checked, setChecked] = useState(true);
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
+  const handleChange = (index) => {
+    // setChecked((prev) => !prev);
+
+    updateTodo(index);
   };
 
   return (
@@ -21,10 +23,10 @@ export default function Main() {
               type="checkbox"
               value={item.checked}
               checked={item.checked}
-              onChange={handleChange}
+              onChange={() => handleChange(index)}
             />
             <span>{item.title}</span>
-            <BsFillTrashFill />
+            <BsFillTrashFill onClick={() => deleteTodo(index)} />
           </div>
         );
       })}

@@ -6,13 +6,13 @@ import { TodoProvider } from "./context/TodoContext";
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <TodoProvider>
+    <TodoProvider>
+      <div className="app">
+        <Header />
         <Main />
-      </TodoProvider>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </TodoProvider>
   );
 }
 
