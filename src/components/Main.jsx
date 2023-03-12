@@ -1,32 +1,42 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styles from "./Main.module.css";
 import { BsFillTrashFill } from "react-icons/bs";
 import { TodoContext } from "../context/TodoContext";
 
 export default function Main() {
-  const { todos, deleteTodo, updateTodo } = useContext(TodoContext);
+  const { todos, filter, deleteTodo, updateTodo, darkMode } =
+    useContext(TodoContext);
 
-  // const [checked, setChecked] = useState(true);
+  let filteredTodos = [];
+
+  if (filter === "active") {
+    filteredTodos = todos.filter((todo) => !todo.checked);
+  } else if (filter === "completed") {
+    filteredTodos = todos.filter((todo) => todo.checked);
+  } else if (filter === "all") {
+    filteredTodos = todos;
+  }
 
   const handleChange = (index) => {
-    // setChecked((prev) => !prev);
-
     updateTodo(index);
   };
 
   return (
-    <main className={styles.main}>
-      {todos.map((item, index) => {
+    <main
+      className={styles.main}
+      style={darkMode ? { background: "grey" } : { background: "aquamarine" }}
+    >
+      {filteredTodos.map((item) => {
         return (
-          <div key={index} className={styles.items}>
+          <div key={item.index} className={styles.items}>
             <input
               type="checkbox"
               value={item.checked}
               checked={item.checked}
-              onChange={() => handleChange(index)}
+              onChange={() => handleChange(item.index)}
             />
             <span>{item.title}</span>
-            <BsFillTrashFill onClick={() => deleteTodo(index)} />
+            <BsFillTrashFill onClick={() => deleteTodo(item.index)} />
           </div>
         );
       })}

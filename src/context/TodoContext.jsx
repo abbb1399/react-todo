@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
+  const [filter, setFilter] = useState("all");
   const [todos, setTodo] = useState([
     {
       index: 0,
@@ -15,6 +16,8 @@ export function TodoProvider({ children }) {
       title: "청소하기",
     },
   ]);
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleDarkMode = () => setDarkMode((mode) => !mode);
 
   const addTodo = (newTodo) => {
     setTodo((todos) => [
@@ -39,8 +42,23 @@ export function TodoProvider({ children }) {
     setTodo((todos) => todos.filter((todo) => todo.index !== index));
   };
 
+  const filtetStatus = (status) => {
+    setFilter(status);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, deleteTodo, updateTodo }}>
+    <TodoContext.Provider
+      value={{
+        todos,
+        filter,
+        darkMode,
+        addTodo,
+        deleteTodo,
+        updateTodo,
+        filtetStatus,
+        toggleDarkMode,
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );
